@@ -1,0 +1,415 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	xmlns:lps="http://loyaltypartner.com/soap/lps-vendo-customers"
+	targetNamespace="http://loyaltypartner.com/soap/lps-vendo-customers"
+	elementFormDefault="qualified">
+
+	<xs:element name="VendoCustomersRequest">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="SystemAuthentication"
+					type="lps:SystemAuthentication" minOccurs="1" />
+				<xs:element name="lastUpdatedAt" type="xs:dateTime" />
+				<xs:element name="requestDetails" type="lps:VendoCustomer" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:element name="VendoCustomersResponse">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="responseStatus"
+					type="lps:ResponseStatus" minOccurs="1" />
+				<xs:element name="responseDetails"
+					type="lps:VendoCustomer" />
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+
+	<xs:complexType name="VendoCustomer">
+		<xs:sequence>
+			<xs:element name="Controls" type="lps:Controls"
+				minOccurs="1" />
+			<xs:element name="Customer" type="lps:Customer"
+				minOccurs="1" />
+			<xs:element name="Address" type="lps:Address"
+				minOccurs="1" maxOccurs="unbounded" />
+			<xs:element name="BankAccount" type="lps:BankAccount"
+				minOccurs="0" />
+			<xs:element name="Communication" type="lps:Communication"
+				minOccurs="0" maxOccurs="unbounded" />
+			<xs:element name="CustomerCard" type="lps:CustomerCard"
+				minOccurs="0" maxOccurs="unbounded" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="SystemAuthentication">
+		<xs:sequence>
+			<xs:element name="source" type="xs:string" minOccurs="1" />
+			<xs:element name="username" type="xs:string" minOccurs="1" />
+			<xs:element name="password" type="xs:string" minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Controls">
+		<xs:sequence>
+			<xs:element name="zKDBID" type="lps:zKDBID" minOccurs="1" />
+			<xs:element name="txID" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:length value="38" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="createdAt" type="xs:dateTime"
+				minOccurs="1" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Customer">
+		<xs:sequence>
+			<xs:element name="crmID" type="xs:string" minOccurs="1" />
+			<xs:element name="ktoCrmID" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="34" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ktoKundenkontoID" minOccurs="0"
+				maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="34" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ktoKundendatensatzID" minOccurs="0"
+				maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="34" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ktoKundenprofilID" minOccurs="0"
+				maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="34" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="ktoPvKundennummer" minOccurs="0"
+				maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="34" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="zKDBID" type="lps:zKDBID" minOccurs="1" />
+			<xs:element name="ktoZkdbID" minOccurs="0" maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="34" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="lastName" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="254" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="firstName" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="254" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="additionalName" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="254" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="title" type="lps:title" minOccurs="0" />
+			<xs:element name="salutation" type="lps:salutation"
+				minOccurs="0" />
+			<xs:element name="dateOfBirth" type="xs:date"
+				minOccurs="1" />
+			<xs:element name="adRestriction" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="0" />
+						<xs:maxInclusive value="1" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="debitStatus" type="lps:debitStatus"
+				minOccurs="1" />
+			<xs:element name="bahnBonusSubscription" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="0" />
+						<xs:maxInclusive value="1" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Address">
+		<xs:sequence>
+			<xs:element name="ktoAddressID" minOccurs="0"
+				maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="34" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="postboxFlag" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="0" />
+						<xs:maxInclusive value="1" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="validFlag" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="0" />
+						<xs:maxInclusive value="1" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="streetPostbox" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="254" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="additionalAdressLine" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="254" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="zipCode" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="city" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="254" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="isoCountryCode"
+				type="lps:isoCountryCode" minOccurs="1" />
+			<xs:element name="isMainAddress" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:integer">
+						<xs:minInclusive value="0" />
+						<xs:maxInclusive value="1" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="BankAccount">
+		<xs:sequence>
+			<xs:element name="ktoBankAccountID" minOccurs="0"
+				maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="34" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="accountHolder" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="254" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bankName" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="254" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="iban" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="34" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="bic" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="11" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="Communication">
+		<xs:sequence>
+			<xs:element name="ktoCommunicationID" minOccurs="0"
+				maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="34" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="communicationType"
+				type="lps:communicationType" minOccurs="1" />
+			<xs:element name="communicationDetail" minOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="100" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="CustomerCard">
+		<xs:sequence>
+			<xs:element name="ktoCustomerCardID" minOccurs="0"
+				maxOccurs="1">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="34" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="cardType" type="lps:CardType"
+				minOccurs="1" />
+			<xs:element name="cardNumber" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="30" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="travelClass" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="20" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="validFrom" type="xs:date" minOccurs="0" />
+			<xs:element name="validTo" type="xs:date" minOccurs="0" />
+			<xs:element name="description" minOccurs="0">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:maxLength value="254" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="ResponseStatus">
+		<xs:sequence>
+			<xs:element name="errorCode" type="xs:string" />
+			<xs:element name="errorMessage" type="xs:string"
+				minOccurs="0" />
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:simpleType name="zKDBID">
+		<xs:restriction base="xs:string">
+			<xs:length value="16" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="title">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Dr." />
+			<xs:enumeration value="Dr. Dr." />
+			<xs:enumeration value="Prof." />
+			<xs:enumeration value="Prof. Dr." />
+			<xs:enumeration value="Prof. Dr. Dr." />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="salutation">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Herr" />
+			<xs:enumeration value="Frau" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="debitStatus">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="potentiell frei geschaltet" />
+			<xs:enumeration value="kein LSV-Kunde" />
+			<xs:enumeration value="abgemeldet" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="isoCountryCode">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="GER" />
+			<xs:enumeration value="FRA" />
+			<xs:enumeration value="ITA" />
+			<xs:enumeration value="ESP" />
+			<xs:enumeration value="AUT" />
+			<!-- TODO: Vervollständigen -->
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="communicationType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="EMAIL_PRIVAT" />
+			<xs:enumeration value="TELEFON_PRIVAT" />
+			<xs:enumeration value="TELEFON_GESCHAEFT" />
+			<xs:enumeration value="TELEFON_MOBIL" />
+			<xs:enumeration value="EMAIL_GESCHAEFT" />
+			<xs:enumeration value="FAX_PRIVAT" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="communicationArea">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PRIVAT" />
+			<xs:enumeration value="GESCHAEFT" />
+			<xs:enumeration value="SONSTIGE" />
+		</xs:restriction>
+	</xs:simpleType>
+
+	<xs:simpleType name="CardType">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="0" />
+			<xs:enumeration value="1" />
+			<xs:enumeration value="4Z" />
+			<xs:enumeration value="4H" />
+			<xs:enumeration value="5Z" />
+			<xs:enumeration value="5H" />
+			<xs:enumeration value="W" />
+			<xs:enumeration value="Y" />
+			<!-- TODO: Vervollständigen -->
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
